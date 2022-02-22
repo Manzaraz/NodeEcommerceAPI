@@ -6,7 +6,7 @@ router.get("/usertest", (req, res) => {
 
 router.post("/userposttest", (req, res) => {
   const username = req.body.username;
-  console.log(username);
+  console.log(`Your username is: ${username}`);
 });
 
 // lh: 5500/api/user/usertest
