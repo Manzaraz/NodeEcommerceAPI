@@ -1,15 +1,15 @@
-const router = require("express").Router(),
-  User = require("../models/User"),
-  CryptoJS = require("crypto-js");
+const router = require("express").Router();
+const CryptoJs = require("crypto-js");
+const User = require("../models/User");
 
-//  Register
+// REGISTER
 router.post("/register", async (req, res) => {
   const newUser = new User({
     username: req.body.username,
     email: req.body.email,
-    password: CryptoJS.AES.encrypt(
+    password: CryptoJs.AES.encrypt(
       req.body.password,
-      process.env["PW_SECRET"]
+      process.env.PW_SECRET
     ).toString(),
   });
   try {
@@ -20,22 +20,27 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// Loggin
+// LOGIN
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    !user && res.status(401).json("Wrong Credentials!");
-    const hashedPassword = CryptoJS.AES.decrypt(
-      user.password,
-      process.env["PW_SECRET"]
-    );
-    const dbPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+    !user && res.status(401).json("Wrong crenentials: username doesn't match");
 
-    dbPassword !== req.body.password &&
-      res.status(401).json("Wrong credentials!");
+    const hashedPasword = CryptoJs.AES.decrypt(
+      user.password,
+      process.env.PW_SECRET
+    );
+
+    const dbPassword = hashedPasword.toString(CryptoJs.enc.Utf8);
     const { password, ...others } = user._doc;
 
-    res.status(200).json(others);
+    req.body.password !== dbPassword
+      ? res
+          .status(401)
+          .json(
+            `Wrong crenentials: password doesn't match for ${req.body.username}`
+          )
+      : res.status(200).json({ ...others });
   } catch (err) {
     res.status(500).json(err);
   }
