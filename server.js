@@ -4,6 +4,8 @@ const express = require("express"),
   mongoose = require("mongoose"),
   userRoute = require("./routes/user"),
   productRoute = require("./routes/product"),
+  cartRoute = require("./routes/cart"),
+  orderRoute = require("./routes/order"),
   authRoute = require("./routes/auth");
 
 //  db Connection
@@ -20,6 +22,8 @@ app.use(cors());
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/products", productRoute);
+app.use("/api/carts", cartRoute);
+app.use("/api/orders", orderRoute);
 
 const listener = app.listen(process.env.PORT || 3500, () => {
   console.log(`Yor App is listening on port ${listener.address().port}`);
