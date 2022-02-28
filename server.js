@@ -1,10 +1,10 @@
 require("dotenv").config();
 const express = require("express"),
   cors = require("cors"),
-  mongoose = require("mongoose"),
   userRoute = require("./routes/user"),
   productRoute = require("./routes/product"),
   cartRoute = require("./routes/cart"),
+  stripeRoute = require("./routes/stripe"),
   orderRoute = require("./routes/order"),
   authRoute = require("./routes/auth");
 
@@ -24,6 +24,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
+app.use("/api/checkout", stripeRoute);
 
 const listener = app.listen(process.env.PORT || 3500, () => {
   console.log(`Yor App is listening on port ${listener.address().port}`);
