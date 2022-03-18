@@ -56,7 +56,7 @@ router.post("/login", async (req, res) => {
 
 module.exports = router;
 
-// Chris
+// Chris || admin
 // 1234
 //  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMTYzMDE0NDI3MzNhYjI2ZDkxOGFjOSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NDU4MDA5NDgsImV4cCI6MTY0NjA2MDE0OH0.LnIhnUGS6CBfL77cRDDQNZdp3SVrXZ94k5C71QdjinY"
 // }
